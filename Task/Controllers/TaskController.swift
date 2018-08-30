@@ -24,7 +24,7 @@ class TaskController {
         return [study, hike, sleep]
     }()
     
-    
+    //MARK: Source Of Truth
     var tasks : [Task] = []
     
 
@@ -34,6 +34,8 @@ class TaskController {
     func add(taskWithName name: String, notes: String?, due: Date?){
         
     }
+    
+    
     
     func update(task: Task, name: String, notes: String?, due: Date?){
         
