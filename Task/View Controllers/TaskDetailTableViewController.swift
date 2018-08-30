@@ -20,13 +20,16 @@ class TaskDetailTableViewController: UITableViewController {
     @IBOutlet weak var taskNameTextField: UITextField!
     @IBOutlet weak var dueDateTextField: UITextField!
     @IBOutlet weak var notesTextView: UITextView!
+    @IBOutlet var dueDatePicker: UIDatePicker!
     
     
     
     //MARK: - LifeCycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        dueDateTextField.inputView = dueDatePicker
         updateViews()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,6 +58,18 @@ class TaskDetailTableViewController: UITableViewController {
     @IBAction func cancelButtonTapped(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
+    
+    @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
+        let date = dueDatePicker.date
+        dueDateTextField.text = date.stringValue()
+    }
+    
+    //FIXME: not resigning the view
+    @IBAction func userTappedView(_ sender: UITapGestureRecognizer) {
+        self.resignFirstResponder()
+    }
+    
+    
     
   
     @IBAction func saveButtonTapped(_ sender: Any) {

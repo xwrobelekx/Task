@@ -10,11 +10,12 @@ import Foundation
 
 
 extension Date {
-
-func stringValue() -> String {
-    let formater = DateFormatter()
-    formater.dateStyle = .medium
-    return formater.string(from: self)
-}
+    
+    ///Helper metchod to convert date into string - user created
+    func stringValue() -> String {
+        let formater = DateFormatter()
+        formater.dateStyle = .medium
+        return formater.string(from: self)
+    }
     
 }
