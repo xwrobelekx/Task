@@ -13,14 +13,16 @@ class TaskListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //had to run this function to populate the tasks array
-         TaskController.shared.fetchTasks()
+        //FIXME: not sure it tfis is corect to have my table view populated
+        TaskController.shared.fetchTasks()
 
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
+
 
     // MARK: - Table view data source
 
@@ -44,25 +46,24 @@ class TaskListTableViewController: UITableViewController {
     }
    
 
-    /*
-    // Override to support conditional editing of the table view.
+    
+    
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
+  
 
-    /*
+   
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
+    
+            let taskToDelete = TaskController.shared.tasks[indexPath.row]
+            TaskController.shared.remove(task: taskToDelete)
             tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
-    */
+   
 
     /*
     // Override to support rearranging the table view.

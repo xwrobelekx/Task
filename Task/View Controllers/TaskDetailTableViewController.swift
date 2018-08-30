@@ -9,17 +9,71 @@
 import UIKit
 
 class TaskDetailTableViewController: UITableViewController {
+    
+    //MARK: - Properties
+    var task : Task?
+    var dueDateValue : Date?
+    
 
+    //MARK: - Outlets
+    
+    @IBOutlet weak var taskNameTextField: UITextField!
+    @IBOutlet weak var dueDateTextField: UITextField!
+    @IBOutlet weak var notesTextView: UITextView!
+    
+    
+    
+    //MARK: - LifeCycle Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateViews()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateViews()
+    }
+    
+    //MARK: - Methods
+    func updateTask(){
+        
+        
+    }
+    
+    func updateViews() {
+        guard let task = task else {return}
+        taskNameTextField.text = task.name
+        notesTextView.text = task.notes
+        //FIXME: Keep an eye on this:
+        dueDateTextField.text = "\(task.due)"
 
+        
+    }
+    
 
+    //MARK: - Actions
     @IBAction func cancelButtonTapped(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
     
-   
+  
+    @IBAction func saveButtonTapped(_ sender: Any) {
+        guard let name = taskNameTextField.text else {return}
+        let notes = notesTextView.text
+        //FIXME: were taking date feom dueDateProperty, this is not set up yet and its optional
+        let date = dueDateValue
+        
+        //FIXME: read the section SetuUP TASKDETAILTVC under #3 they talking about updateTask() function - not sure what that is
+        if let task = task {
+            // update
+            TaskController.shared.update(task: task, name: name, notes: notes, due: date)
+        } else {
+            //create new one
+            TaskController.shared.add(taskWithName: name, notes: notes, due: date)
+        }
+        navigationController?.popViewController(animated: true)
+    }
+    
     /*
     // MARK: - Navigation
 
